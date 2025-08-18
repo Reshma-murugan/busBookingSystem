@@ -1,37 +1,57 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar.jsx';
-import Footer from './components/Footer.jsx';
-import Home from './pages/Home.jsx';
-import Search from './pages/Search.jsx';
-import BusList from './pages/BusList.jsx';
-import BusDetails from './pages/BusDetails.jsx';
-import SeatBooking from './pages/SeatBooking.jsx';
-import Profile from './pages/Profile.jsx';
-import Login from './pages/Login.jsx';
-import Contact from './pages/Contact.jsx';
-import './App.css';
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { useAuth } from './contexts/AuthContext'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import Results from './pages/Results'
+import BusDetails from './pages/BusDetails'
+import SeatBooking from './pages/SeatBooking'
+import Checkout from './pages/Checkout'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+import Contact from './pages/Contact'
+import BookingSuccess from './pages/BookingSuccess'
+import './App.css'
+
+function ProtectedRoute({ children }) {
+  const { token } = useAuth()
+  
+  if (!token) {
+    const currentPath = window.location.pathname + window.location.search
+    return <Navigate to={`/login?redirect=${encodeURIComponent(currentPath)}`} replace />
+  }
+  
+  return children
+}
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="app-container">
-        <Navbar />
-        <main className="app-main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/buses" element={<BusList />} />
-            <Route path="/bus/:busId" element={<BusDetails />} />
-            <Route path="/booking/:busId" element={<SeatBooking />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+    <div className="app">
+      <Navbar />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/results" element={<Results />} />
+          <Route path="/buses/:busId" element={<BusDetails />} />
+          <Route path="/buses/:busId/seats" element={<SeatBooking />} />
+          <Route path="/checkout" element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          } />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/booking-success" element={<BookingSuccess />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
+  )
 }
 
-export default App;
+export default App

@@ -1,52 +1,45 @@
-import './SeatLayout.css';
+export default function SeatLayout({ seats, selectedSeats, onSeatSelect }) {
+  const handleSeatClick = (seatNo) => {
+    if (seats.find(s => s.seatNo === seatNo)?.booked) return
+    onSeatSelect(seatNo)
+  }
 
-export default function SeatLayout({ totalSeats = 28, bookedSeats = [], selectedSeats = [], onToggle }) {
-  const seats = Array.from({ length: totalSeats }, (_, i) => i + 1);
-  const isBooked = (n) => bookedSeats.includes(n);
-  const isSelected = (n) => selectedSeats.includes(n);
-
-  const rows = [];
-  for (let i = 0; i < seats.length; i += 4) {
-    rows.push(seats.slice(i, i + 4));
+  const getSeatClass = (seatNo) => {
+    const seat = seats.find(s => s.seatNo === seatNo)
+    if (seat?.booked) return 'seat booked'
+    if (selectedSeats.includes(seatNo)) return 'seat selected'
+    return 'seat available'
   }
 
   return (
     <div className="seat-layout">
-      {rows.map((row, idx) => (
-        <div className="seat-row" key={idx}>
-          {/* left pair */}
-          <div className="seat-pair">
-            {row.slice(0, 2).map((n) => (
-              <button
-                key={n}
-                className={`seat ${isBooked(n) ? 'booked' : isSelected(n) ? 'selected' : 'available'}`}
-                onClick={() => !isBooked(n) && onToggle?.(n)}
-                disabled={isBooked(n)}
-                title={`Seat ${n}`}
-              >{n}</button>
-            ))}
-          </div>
-          {/* aisle */}
-          <div className="aisle" />
-          {/* right pair */}
-          <div className="seat-pair">
-            {row.slice(2, 4).map((n) => (
-              <button
-                key={n}
-                className={`seat ${isBooked(n) ? 'booked' : isSelected(n) ? 'selected' : 'available'}`}
-                onClick={() => !isBooked(n) && onToggle?.(n)}
-                disabled={isBooked(n)}
-                title={`Seat ${n}`}
-              >{n}</button>
-            ))}
-          </div>
+      <div className="seat-grid">
+        {Array.from({ length: 28 }, (_, i) => i + 1).map(seatNo => (
+          <button
+            key={seatNo}
+            className={getSeatClass(seatNo)}
+            onClick={() => handleSeatClick(seatNo)}
+            disabled={seats.find(s => s.seatNo === seatNo)?.booked}
+          >
+            {seatNo}
+          </button>
+        ))}
+      </div>
+      
+      <div className="seat-legend">
+        <div className="legend-item">
+          <div className="legend-color legend-available"></div>
+          <span>Available</span>
         </div>
-      ))}
-      <div className="legend">
-        <span className="legend-item"><span className="dot available" /> Available</span>
-        <span className="legend-item"><span className="dot selected" /> Selected</span>
-        <span className="legend-item"><span className="dot booked" /> Booked</span>
+        <div className="legend-item">
+          <div className="legend-color legend-selected"></div>
+          <span>Selected</span>
+        </div>
+        <div className="legend-item">
+          <div className="legend-color legend-booked"></div>
+          <span>Booked</span>
+        </div>
       </div>
     </div>
-  );
+  )
 }

@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/bookings")
+@RequestMapping("/api")
 public class BookingController {
 
     private final BookingService bookingService;
@@ -16,10 +18,20 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @PostMapping
-    public ResponseEntity<BookingDtos.BookingResponse> book(Authentication authentication,
-                                                            @RequestBody BookingDtos.BookingRequest request) {
+    @PostMapping("/bookings")
+    public ResponseEntity<BookingDtos.BookingResponse> createBooking(
+            Authentication authentication,
+            @RequestBody BookingDtos.BookingRequest request
+    ) {
         String userEmail = authentication.getName();
-        return ResponseEntity.ok(bookingService.book(userEmail, request));
+        return ResponseEntity.ok(bookingService.createBooking(userEmail, request));
+    }
+
+    @GetMapping("/user/bookings")
+    public ResponseEntity<List<BookingDtos.BookingHistoryResponse>> getUserBookings(
+            Authentication authentication
+    ) {
+        String userEmail = authentication.getName();
+        return ResponseEntity.ok(bookingService.getUserBookings(userEmail));
     }
 }

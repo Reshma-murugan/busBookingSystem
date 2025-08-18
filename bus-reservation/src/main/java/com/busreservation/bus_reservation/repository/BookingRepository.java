@@ -7,6 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    List<Booking> findByBusIdAndDate(Long busId, LocalDate date);
-    List<Booking> findByUserId(Long userId);
+    List<Booking> findByBusIdAndTripDate(Long busId, LocalDate tripDate);
+    List<Booking> findByUserIdOrderByBookingTimeDesc(Long userId);
 }

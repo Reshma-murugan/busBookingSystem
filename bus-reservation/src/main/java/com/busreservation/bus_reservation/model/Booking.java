@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +19,9 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String pnr;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -25,7 +31,7 @@ public class Booking {
     private Bus bus;
 
     @Column(nullable = false)
-    private Integer seatNo;
+    private LocalDate tripDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_stop_id", nullable = false)
@@ -36,5 +42,12 @@ public class Booking {
     private Stop toStop;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private String status; // CONFIRMED, CANCELLED
+
+    @Column(nullable = false)
+    private LocalDateTime bookingTime;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Passenger> passengers = new ArrayList<>();
 }

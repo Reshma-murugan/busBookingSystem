@@ -1,9 +1,9 @@
-import './Footer.css';
-
 export default function Footer() {
   return (
     <footer className="footer">
-      <p>© {new Date().getFullYear()} Bus Booking. All rights reserved.</p>
+      <div className="container">
+        <p>&copy; {new Date().getFullYear()} Bus Reservation System. All rights reserved.</p>
+      </div>
     </footer>
-  );
+  )
 }

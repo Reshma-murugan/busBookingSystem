@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/buses")
+@RequestMapping("/api/buses")
 public class BusController {
 
     private final BusService busService;
@@ -19,21 +19,27 @@ public class BusController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<BusDtos.BusSearchResponse> search(
-            @RequestParam String from,
-            @RequestParam String to,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+    public ResponseEntity<BusDtos.BusSearchResponse> searchBuses(
+            @RequestParam Long fromCityId,
+            @RequestParam Long toCityId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam(defaultValue = "1") Integer seats
     ) {
-        return ResponseEntity.ok(busService.search(from, to, date));
+        return ResponseEntity.ok(busService.searchBuses(fromCityId, toCityId, date, seats));
+    }
+
+    @GetMapping("/{busId}")
+    public ResponseEntity<BusDtos.BusDetailsResponse> getBusDetails(@PathVariable Long busId) {
+        return ResponseEntity.ok(busService.getBusDetails(busId));
     }
 
     @GetMapping("/{busId}/seats")
-    public ResponseEntity<BusDtos.SeatAvailabilityResponse> seats(
+    public ResponseEntity<BusDtos.SeatAvailabilityResponse> getSeatAvailability(
             @PathVariable Long busId,
-            @RequestParam("fromStop") Long fromStopId,
-            @RequestParam("toStop") Long toStopId,
+            @RequestParam Long fromStopId,
+            @RequestParam Long toStopId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
-        return ResponseEntity.ok(busService.seatAvailability(busId, fromStopId, toStopId, date));
+        return ResponseEntity.ok(busService.getSeatAvailability(busId, fromStopId, toStopId, date));
     }
 }

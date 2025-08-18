@@ -1,63 +1,76 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import './BusDetails.css';
+import { useParams, useSearchParams, Link } from 'react-router-dom'
+import useFetch from '../hooks/useFetch'
 
 export default function BusDetails() {
-  const { state } = useLocation();
-  const { busId } = useParams();
-  const navigate = useNavigate();
-  const bus = state?.bus;
+  const { busId } = useParams()
+  const [searchParams] = useSearchParams()
 
-  const [fromStopId, setFromStopId] = useState('');
-  const [toStopId, setToStopId] = useState('');
-  const [date, setDate] = useState('');
+  const { data: bus, loading, error } = useFetch({
+    url: `/api/buses/${busId}`,
+    auto: true,
+    deps: [busId]
+  })
 
-  useEffect(() => {
-    if (bus && bus.stops?.length) {
-      setFromStopId(bus.stops[0].id);
-      setToStopId(bus.stops[bus.stops.length - 1].id);
-    }
-  }, [bus]);
-
-  const canProceed = useMemo(() => !!(fromStopId && toStopId && date && Number(fromStopId) !== Number(toStopId)), [fromStopId, toStopId, date]);
-
-  if (!bus) {
-    return <div className="bus-details"><p>Bus data missing. Go back and select a bus again.</p></div>;
-  }
+  if (loading) return <div className="loading">Loading bus details...</div>
+  if (error) return <div className="error-message">Error: {error.message}</div>
+  if (!bus) return <div className="error-message">Bus not found</div>
 
   return (
-    <div className="bus-details">
-      <h2>{bus.name} <small className="type">{bus.type}</small></h2>
-      <p>Total Seats: {bus.totalSeats}</p>
-      <div className="stops">
-        <h4>Stops</h4>
-        <ol>
-          {bus.stops?.map(s => <li key={s.id}>{s.sequence}. {s.name}</li>)}
-        </ol>
-      </div>
+    <div className="container">
+      <div className="card">
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <h1 className="text-2xl font-bold mb-2">{bus.name}</h1>
+            <p className="text-secondary">{bus.route}</p>
+          </div>
+          <span className="bus-type">{bus.type}</span>
+        </div>
 
-      <div className="selectors">
-        <label>
-          From Stop
-          <select value={fromStopId} onChange={e=>setFromStopId(e.target.value)}>
-            {bus.stops?.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select>
-        </label>
-        <label>
-          To Stop
-          <select value={toStopId} onChange={e=>setToStopId(e.target.value)}>
-            {bus.stops?.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select>
-        </label>
-        <label>
-          Date
-          <input type="date" value={date} onChange={e=>setDate(e.target.value)} />
-        </label>
-      </div>
+        <div className="grid grid-2 mb-6">
+          <div>
+            <h3 className="font-semibold mb-2">Journey Details</h3>
+            <div className="text-sm">
+              <p>Departure: {bus.departureTime}</p>
+              <p>Arrival: {bus.arrivalTime}</p>
+              <p>Duration: {bus.duration}</p>
+              <p>Total Seats: {bus.totalSeats}</p>
+            </div>
+          </div>
 
-      <button disabled={!canProceed} className="btn"
-        onClick={() => navigate(`/booking/${busId}`, { state: { bus, fromStopId: Number(fromStopId), toStopId: Number(toStopId), date } })}
-      >Proceed to Seat Selection</button>
+          <div>
+            <h3 className="font-semibold mb-2">Amenities</h3>
+            <div className="text-sm">
+              {bus.amenities?.map((amenity, index) => (
+                <p key={index}>✓ {amenity}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <h3 className="font-semibold mb-2">Route & Stops</h3>
+          <div className="grid grid-3">
+            {bus.stops?.map((stop, index) => (
+              <div key={stop.id} className="text-sm p-4 bg-gray-50 rounded">
+                <div className="font-medium">{stop.name}</div>
+                <div className="text-secondary">{stop.arrivalTime}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex gap-4">
+          <Link 
+            to={`/buses/${busId}/seats?${searchParams.toString()}`}
+            className="btn btn-primary"
+          >
+            View Seats & Book
+          </Link>
+          <Link to="/results" className="btn btn-outline">
+            Back to Results
+          </Link>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
