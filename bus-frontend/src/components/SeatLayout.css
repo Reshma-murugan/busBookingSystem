@@ -1,0 +1,13 @@
+.seat-layout{display:inline-block;padding:12px;border:1px solid #e2e8f0;border-radius:10px;background:#fff}
+.seat-row{display:flex;align-items:center;justify-content:center;margin:6px 0}
+.seat-pair{display:flex;gap:8px}
+.aisle{width:24px}
+.seat{width:40px;height:40px;border-radius:8px;border:1px solid #cbd5e1;background:#f8fafc;color:#0f172a;cursor:pointer}
+.seat.available:hover{background:#e2e8f0}
+.seat.selected{background:#22c55e;color:#fff;border-color:#16a34a}
+.seat.booked{background:#ef4444;color:#fff;border-color:#b91c1c;cursor:not-allowed}
+.legend{display:flex;gap:14px;margin-top:10px;color:#475569}
+.legend .dot{display:inline-block;width:12px;height:12px;border-radius:999px;margin-right:6px;vertical-align:middle}
+.legend .dot.available{background:#f8fafc;border:1px solid #cbd5e1}
+.legend .dot.selected{background:#22c55e}
+.legend .dot.booked{background:#ef4444}

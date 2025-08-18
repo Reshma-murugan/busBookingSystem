@@ -1,0 +1,6 @@
+.bus-list-page{max-width:1200px;margin:0 auto;padding:64px 16px}
+.criteria{color:var(--muted);margin-bottom:var(--space-4)}
+.list{display:grid;gap:var(--space-6)}
+@media (min-width:768px){.list{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1024px){.list{grid-template-columns:repeat(3,1fr)}}
+.error{color:var(--error)}

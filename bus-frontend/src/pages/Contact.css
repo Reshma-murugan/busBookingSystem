@@ -1,0 +1,12 @@
+.contact-page{max-width:900px;margin:0 auto;padding:64px 16px}
+.contact-page form{display:grid;gap:var(--space-4)}
+.contact-page input,
+.contact-page textarea{
+  width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,0.08);border-radius:10px;
+  background:linear-gradient(180deg,#0f141b,#0b1118);color:var(--text);outline:none;
+  transition:border-color .2s ease,box-shadow .2s ease
+}
+.contact-page input:focus,
+.contact-page textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.25)}
+.contact-page button{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.12);background:linear-gradient(180deg,var(--primary),var(--primary-600));color:#fff;font-weight:600;cursor:pointer;transition:transform .12s ease,background .2s ease,border-color .2s ease}
+.contact-page button:hover{transform:translateY(-1px);background:linear-gradient(180deg,var(--primary-600),var(--primary-700))}

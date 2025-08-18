@@ -1,0 +1,7 @@
+.bus-details{max-width:900px;margin:20px auto}
+.bus-details .type{font-size:14px;color:#475569}
+.stops ol{padding-left:20px}
+.selectors{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}
+.selectors label{display:flex;flex-direction:column;gap:6px}
+.btn{background:#2563eb;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;text-decoration:none}
+.btn:disabled{opacity:.6;cursor:not-allowed}

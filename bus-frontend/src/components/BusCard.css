@@ -1,0 +1,8 @@
+.bus-card{border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin:10px 0;background:#fff}
+.bus-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.bus-card-header .type{font-size:12px;padding:2px 8px;border-radius:999px;color:#fff}
+.bus-card-header .type.ac{background:#0ea5e9}
+.bus-card-header .type.nonac{background:#64748b}
+.bus-card-body{color:#334155}
+.bus-card-actions .btn{background:#2563eb;color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px}
+.bus-card-actions .btn:hover{background:#1e40af}
