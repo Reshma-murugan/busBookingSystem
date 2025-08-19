@@ -1,0 +1,246 @@
+.dashboard {
+  padding: var(--spacing-lg);
+}
+
+.dashboard-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.dashboard-header p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+  background: var(--surface-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-primary {
+  color: var(--primary-color);
+  background: rgba(30, 64, 175, 0.1);
+}
+
+.icon-success {
+  color: var(--success-color);
+  background: rgba(5, 150, 105, 0.1);
+}
+
+.icon-warning {
+  color: var(--warning-color);
+  background: rgba(217, 119, 6, 0.1);
+}
+
+.icon-info {
+  color: var(--secondary-color);
+  background: rgba(100, 116, 139, 0.1);
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-section {
+  width: 100%;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.booking-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm);
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+}
+
+.booking-info {
+  flex: 1;
+}
+
+.booking-pnr {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.booking-route {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.booking-details {
+  text-align: right;
+}
+
+.booking-seats {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.booking-amount {
+  font-weight: 600;
+  color: var(--success-color);
+  font-size: 0.875rem;
+}
+
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.alert-item {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius);
+  border-left: 4px solid;
+}
+
+.alert-maintenance {
+  background: rgba(217, 119, 6, 0.1);
+  border-left-color: var(--warning-color);
+}
+
+.alert-booking {
+  background: rgba(30, 64, 175, 0.1);
+  border-left-color: var(--primary-color);
+}
+
+.alert-schedule {
+  background: rgba(5, 150, 105, 0.1);
+  border-left-color: var(--success-color);
+}
+
+.alert-message {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.fleet-status {
+  text-align: center;
+}
+
+.fleet-count {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.fleet-label {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.fleet-bar {
+  height: 8px;
+  background: var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.fleet-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.fleet-fill.active {
+  background: var(--success-color);
+}
+
+.fleet-fill.maintenance {
+  background: var(--warning-color);
+}
+
+.fleet-fill.reserved {
+  background: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: var(--spacing-md);
+  }
+  
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: var(--spacing-md);
+  }
+  
+  .fleet-grid {
+    grid-template-columns: 1fr;
+  }
+}

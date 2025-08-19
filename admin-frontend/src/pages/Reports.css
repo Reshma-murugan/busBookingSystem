@@ -1,0 +1,283 @@
+.reports-page {
+  padding: var(--spacing-lg);
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.date-range-picker {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.date-range-picker span {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.reports-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.overview-card {
+  background: var(--surface-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.overview-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.overview-icon.revenue {
+  background: rgba(5, 150, 105, 0.1);
+  color: var(--success-color);
+}
+
+.overview-icon.bookings {
+  background: rgba(30, 64, 175, 0.1);
+  color: var(--primary-color);
+}
+
+.overview-icon.occupancy {
+  background: rgba(217, 119, 6, 0.1);
+  color: var(--warning-color);
+}
+
+.overview-icon.daily {
+  background: rgba(100, 116, 139, 0.1);
+  color: var(--secondary-color);
+}
+
+.overview-content {
+  flex: 1;
+}
+
+.overview-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.overview-label {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.overview-change {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.overview-change.positive {
+  color: var(--success-color);
+}
+
+.overview-change.negative {
+  color: var(--error-color);
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.report-section.full-width {
+  grid-column: 1 / -1;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.routes-performance,
+.bus-utilization {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.performance-item,
+.utilization-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm);
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+}
+
+.performance-info,
+.utilization-info {
+  flex: 1;
+}
+
+.performance-name,
+.bus-number {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.performance-stats,
+.utilization-stats {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.performance-metrics,
+.utilization-metrics {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  min-width: 100px;
+}
+
+.occupancy-bar,
+.utilization-bar {
+  width: 60px;
+  height: 8px;
+  background: var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.occupancy-fill,
+.utilization-fill {
+  height: 100%;
+  background: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.occupancy-text,
+.utilization-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 35px;
+  text-align: right;
+}
+
+.revenue-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.breakdown-item {
+  display: grid;
+  grid-template-columns: 120px 1fr 150px;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.breakdown-label {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.breakdown-bar {
+  height: 12px;
+  background: var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.breakdown-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.breakdown-fill.ac {
+  background: var(--primary-color);
+}
+
+.breakdown-fill.non-ac {
+  background: var(--secondary-color);
+}
+
+.breakdown-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.report-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .reports-page {
+    padding: var(--spacing-md);
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .reports-overview {
+    grid-template-columns: 1fr;
+  }
+  
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .overview-card {
+    padding: var(--spacing-md);
+  }
+  
+  .breakdown-item {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+    text-align: center;
+  }
+  
+  .breakdown-value {
+    text-align: center;
+  }
+  
+  .performance-item,
+  .utilization-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .performance-metrics,
+  .utilization-metrics {
+    align-self: stretch;
+    justify-content: space-between;
+  }
+}

@@ -40,7 +40,7 @@ public class AuthService {
         user = userRepository.save(user);
         String token = jwtService.generateToken(user.getEmail(), java.util.Map.of("uid", user.getId(), "role", user.getRole()));
         return AuthDtos.AuthResponse.builder()
-                .token(token)
+                .accessToken(token)
                 .userId(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
@@ -53,7 +53,7 @@ public class AuthService {
         User user = userRepository.findByEmail(req.getEmail()).orElseThrow();
         String token = jwtService.generateToken(user.getEmail(), java.util.Map.of("uid", user.getId(), "role", user.getRole()));
         return AuthDtos.AuthResponse.builder()
-                .token(token)
+                .accessToken(token)
                 .userId(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())

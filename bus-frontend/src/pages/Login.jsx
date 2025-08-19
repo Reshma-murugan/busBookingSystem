@@ -47,7 +47,12 @@ export default function Login() {
       const result = await submitAuth(payload)
       
       if (result?.accessToken) {
-        login(result.accessToken, result.user)
+        login(result.accessToken, {
+          id: result.userId,
+          name: result.name,
+          email: result.email,
+          role: result.role
+        })
         const redirect = searchParams.get('redirect') || '/'
         navigate(redirect, { replace: true })
       }

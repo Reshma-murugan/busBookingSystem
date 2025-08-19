@@ -26,7 +26,7 @@ public class AuthDtos {
     @AllArgsConstructor
     @Builder
     public static class AuthResponse {
-        private String token;
+        private String accessToken;
         private Long userId;
         private String name;
         private String email;
